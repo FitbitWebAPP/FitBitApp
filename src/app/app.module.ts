@@ -13,8 +13,21 @@ import { HeartrateDataComponent } from './heartrate-data/heartrate-data.componen
 import { NavbarComponent } from './navbar/navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { RouterModule } from '@angular/router';
+import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {path: '', component: AppComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: 'group-list', component: GroupListComponent},
+  {path: 'add-group', component: AddGroupComponent},
+  {path: 'group', component: GroupComponent},
+  {path: '**', redirectTo: 'login'}
+]
 
 @NgModule({
   declarations: [
@@ -33,16 +46,17 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(
-      [
-        {path: "", component: AppComponent},
-        {path: "login", component: LoginComponent},
-        {path: "signup", component: SignupComponent},
-        {path: "group-list", component: GroupListComponent},
-        {path: "add-group", component: AddGroupComponent},
-        {path: "group", component: GroupComponent}
-      ]
-    )
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatListModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    HttpModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
