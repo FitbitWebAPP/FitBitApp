@@ -8,9 +8,18 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private myRoute: Router) { }
 
   ngOnInit() {
+  }
+
+  Logout(){
+
+    // this._AuthGuard.signOut();
+    // or
+    // this.auth.doLogout();
+    
+    this.myRoute.navigate(["login"]);
   }
 
 }
