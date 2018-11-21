@@ -27,6 +27,9 @@ const routes: Routes = [
   {path: 'group-list', component: GroupListComponent},
   {path: 'add-group', component: AddGroupComponent},
   {path: 'group', component: GroupComponent},
+  {path: 'activity-data', component: ActivityDataComponent},
+  {path: 'heartrate-data', component: HeartrateDataComponent},
+  {path: 'sleep-data', component: SleepDataComponent},
   {path: '**', redirectTo: 'login'}
 ]
 
