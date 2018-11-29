@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database'
@@ -8,9 +7,7 @@ import { environment } from 'src/environments/environment.prod';
 import {AuthGuard} from './service/auth.guard';
 import { AuthService } from './service/auth.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AppComponent } from './app.component';
 import { from } from 'rxjs';
-=======
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -44,7 +41,6 @@ const routes: Routes = [
   {path: 'sleep-data', component: SleepDataComponent},
   {path: '**', redirectTo: 'login'}
 ]
->>>>>>> 1b0e124e58091cc8343a80ac040c2f533ec317f6
 
 @NgModule({
   declarations: [
@@ -63,12 +59,10 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-<<<<<<< HEAD
     AngularFireModule.initializeApp(environment.Firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireDatabaseModule
-=======
+    AngularFireDatabaseModule,
     FormsModule,
     MatToolbarModule,
     MatButtonModule,
@@ -81,7 +75,6 @@ const routes: Routes = [
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(routes)
->>>>>>> 1b0e124e58091cc8343a80ac040c2f533ec317f6
   ],
   providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]

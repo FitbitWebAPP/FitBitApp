@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,18 +11,18 @@ export class AuthService {
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
 
-  constructor(private _firebaseAuth: AngularFireAuth, /*private router: Router*/ /*private notifier: NotificationService*/) {
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router /*private notifier: NotificationService*/) {
     this.user = _firebaseAuth.authState;
   }
 
-  signup(email: string, password: string, name: string) {
+  signup(email: string, password: string) {
     // clear all messages
     //this.notifier.display(false, '');
     this._firebaseAuth
       .auth
       .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        //this.router.navigate(['home']);
+      .then(() => {
+        this.router.navigate(['login']);
         this.sendEmailVerification();
         const message = 'A verification email has been sent, please check your email and follow the steps!';
        // this.notifier.display(true, message)
@@ -35,13 +36,13 @@ export class AuthService {
       })
       .catch(err => {
         console.log(err);
+        this.router.navigate(['signup'])
        // this.notifier.display(true, err.message);
       });
   }
   sendEmailVerification() {
     this._firebaseAuth.authState.subscribe(user => {
      
-       
       user.sendEmailVerification()
       .then(() => {
         console.log('email sent');
