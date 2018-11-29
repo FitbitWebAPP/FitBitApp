@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <button mat-button routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="/group-list">FitBit App</button>
+  <button mat-button routerLinkActive="active" routerLink="/add-group">Add a Group</button>
+  <button mat-button routerLinkActive="active" routerLink="/activity-data">Activity Data</button>
+  <button mat-button routerLinkActive="active" routerLink="/comparison-data">Comparison Data</button>
+  <button mat-button routerLinkActive="active" routerLink="/heartrate-data">Heartrata Data</button>
+  <button mat-button routerLinkActive="active" routerLink="/sleep-data">Sleep Data</button>
+
+  <span style="flex:1 1 auto"></span>
+  <button mat-button routerLinkActive="active" routerLink="/login">Login</button>
+  <button mat-button routerLinkActive="active" (click)="Logout()"> Logout</button>
+  <button mat-button routerLinkActive="active" routerLink="/signup">Register</button>
+</mat-toolbar>
