@@ -12,7 +12,9 @@ export class SignupComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private myRoute: Router, private _authservice:AuthService) { }
+  constructor( private _authservice:AuthService) { 
+    
+  }
 
   ngOnInit() {
   }
@@ -21,6 +23,12 @@ export class SignupComponent implements OnInit {
     this._authservice.signup(this.email,this.password)
     console.log(this.email);
     console.log(this.password);
+  }
+  GoogleLogin(){
+    this._authservice.doGoogleLogin();
+  }
+  FacebookLogin(){
+    this._authservice.doFacebookLogin()
   }
 
 }

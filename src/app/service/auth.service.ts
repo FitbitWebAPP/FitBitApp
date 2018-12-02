@@ -10,9 +10,10 @@ export class AuthService {
 
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
-
+  userdetails:string;
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router /*private notifier: NotificationService*/) {
     this.user = _firebaseAuth.authState;
+    
   }
 
   signup(email: string, password: string) {
@@ -94,8 +95,43 @@ export class AuthService {
     });
   }
 
-  isLoggedIn():boolean {
+  /* isLoggedIn():boolean {
       return this.loggedInStatus;
+  } */
+  doGoogleLogin(){
+    return new Promise<any>((resolve, reject) => {
+      let provider =  new firebase.auth.GoogleAuthProvider();
+      provider.addScope['email']
+      provider.addScope['profile']
+
+      console.log(provider.addScope('email'))
+    
+      this._firebaseAuth.auth.signInWithPopup(provider).then(result=>{
+        alert(result.user.email)
+        this.router.navigate(['login'])
+        firebase.database().ref('Users/').set({
+          email:result.user.email
+          // The .ref automatically puts u in the realtime database section you created
+          // You as the coder instantiates a new table column and .set the table row data
+         
+        })
+      })
+    //  this._firebaseAuth.auth.getRedirectResult().then(result=>{console.log(result.user.email)})
+
+    })
   }
-  
+  doFacebookLogin(){
+    let provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope['email']
+    provider.addScope['profile']
+    this._firebaseAuth.auth.signInWithPopup(provider).then(result=>{
+      alert(result.user.email)
+      firebase.database().ref('Users/').set({
+        email:result.user.email
+        // The .ref automatically puts u in the realtime database section you created
+        // You as the coder instantiates a new table column and .set the table row data
+       
+      }).catch(err=> alert(err))
+    })
+  }
 }

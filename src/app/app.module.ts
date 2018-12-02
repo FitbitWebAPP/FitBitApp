@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment.prod';
 import {AuthGuard} from './service/auth.guard';
 import { AuthService } from './service/auth.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { from } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -22,7 +21,8 @@ import { HeartrateDataComponent } from './heartrate-data/heartrate-data.componen
 import { NavbarComponent } from './navbar/navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
+import {MatButtonModule} from '@angular/material/button'
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -64,6 +64,7 @@ const routes: Routes = [
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     FormsModule,
+    MatIconModule,
     MatToolbarModule,
     MatButtonModule,
     MatFormFieldModule,
