@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from "rxjs/operators";
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/';
 import { Router } from '@angular/router';
+import { resolve, reject } from 'q';
+import { FacebookLoginProvider } from "angular5-social-login";
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
   userdetails:string;
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router /*private notifier: NotificationService*/) {
     this.user = _firebaseAuth.authState;
+    firebase.firestore().settings( { timestampsInSnapshots: true })
     
   }
 
@@ -107,10 +112,10 @@ export class AuthService {
       console.log(provider.addScope('email'))
     
       this._firebaseAuth.auth.signInWithPopup(provider).then(result=>{
-        alert(result.user.email)
-        this.router.navigate(['login'])
-        firebase.database().ref('Users/').set({
-          email:result.user.email
+        
+        firebase.firestore().collection("/USERS").add({
+          email:result.user.email,
+          name:result.user.displayName
           // The .ref automatically puts u in the realtime database section you created
           // You as the coder instantiates a new table column and .set the table row data
          
@@ -121,17 +126,21 @@ export class AuthService {
     })
   }
   doFacebookLogin(){
-    let provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope['email']
-    provider.addScope['profile']
-    this._firebaseAuth.auth.signInWithPopup(provider).then(result=>{
-      alert(result.user.email)
-      firebase.database().ref('Users/').set({
-        email:result.user.email
-        // The .ref automatically puts u in the realtime database section you created
-        // You as the coder instantiates a new table column and .set the table row data
-       
-      }).catch(err=> alert(err))
-    })
+    return new Promise<any>((resolve,reject)=>{
+     
+      let details = new FacebookLoginProvider("368802260542654")
+    let facebookprovider = new firebase.auth.FacebookAuthProvider()
+      this._firebaseAuth.auth.signInWithPopup(facebookprovider).then(data=>{
+        details.initialize().then(user=> {
+          console.log(user)
+          firebase.firestore().collection("/USERS").add({
+            name:user.name,
+            email:user.email==null ? "No email" : user.email
+          })
+        })
+      })
+      
+    
+ })
   }
 }

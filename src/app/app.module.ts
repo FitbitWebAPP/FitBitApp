@@ -8,7 +8,6 @@ import {AuthGuard} from './service/auth.guard';
 import { AuthService } from './service/auth.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { GroupComponent } from './group/group.component';
 import { GroupListComponent } from './group-list/group-list.component';
@@ -25,9 +24,23 @@ import {MatButtonModule} from '@angular/material/button'
 import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
+import { SocialLoginModule, AuthServiceConfig } from "angular5-social-login";
+import { FacebookLoginProvider } from "angular5-social-login";
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { fbind } from 'q';
+ export function getAuthServiceConfigs() 
+{
+  let config = new AuthServiceConfig([
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider("368802260542654")
+    }
+  ]);
+  return config
+}
 
+ 
 const routes: Routes = [
   {path: '', redirectTo: 'group-list', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
@@ -58,6 +71,7 @@ const routes: Routes = [
     LoginComponent
   ],
   imports: [
+    SocialLoginModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.Firebase),
     AngularFirestoreModule,
@@ -77,7 +91,12 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [AuthService,AuthGuard],
+  providers: [AuthService,AuthGuard,
+     {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs()
+    } 
+  ],
   bootstrap: [AppComponent]
   
 })
