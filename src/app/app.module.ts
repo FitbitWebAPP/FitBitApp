@@ -46,12 +46,12 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'group-list', component: GroupListComponent},
-  {path: 'add-group', component: AddGroupComponent},
-  {path: 'group', component: GroupComponent},
-  {path: 'activity-data', component: ActivityDataComponent},
-  {path: 'comparison-data', component: ComparisonDataComponent},
-  {path: 'heartrate-data', component: HeartrateDataComponent},
-  {path: 'sleep-data', component: SleepDataComponent},
+  {path: 'add-group', component: AddGroupComponent, canActivate:[AuthGuard]},
+  {path: 'group', component: GroupComponent, canActivate:[AuthGuard]},
+  {path: 'activity-data', component: ActivityDataComponent, canActivate:[AuthGuard]},
+  {path: 'comparison-data', component: ComparisonDataComponent, canActivate:[AuthGuard]},
+  {path: 'heartrate-data', component: HeartrateDataComponent, canActivate:[AuthGuard]},
+  {path: 'sleep-data', component: SleepDataComponent, canActivate:[AuthGuard]},
   {path: '**', redirectTo: 'login'}
 ]
 
