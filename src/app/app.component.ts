@@ -18,6 +18,9 @@ export class AppComponent {
     this.maticonregistry.addSvgIcon("icons8-facebook", this.domsanitizer.bypassSecurityTrustResourceUrl("../../assets/icons8-facebook.svg"))
     this.maticonregistry.addSvgIcon("icons8-google", this.domsanitizer.bypassSecurityTrustResourceUrl("../../assets/icons8-google.svg"))
     //this.startingroute.navigate(['group-list'])
+   if (localStorage.getItem('user')) {
+    console.log(localStorage.getItem('user'))
+   }
    
   }
   

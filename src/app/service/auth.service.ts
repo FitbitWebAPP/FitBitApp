@@ -67,6 +67,8 @@ export class AuthService {
           // You as the coder instantiates a new table column and .set the table row data
          
         })
+        localStorage.setItem("user", res.user.uid)
+      console.log("LOOK HERE ",localStorage.getItem('user'))
           this.router.navigate(['group-list'])
           // The .ref automatically puts u in the realtime database section you created
           // You as the coder instantiates a new table column and .set the table row data
@@ -81,6 +83,7 @@ export class AuthService {
        }
       }, err => reject(err))
     })
+    
   }
   doLogout(){
     return new Promise((resolve, reject) => {
@@ -94,6 +97,7 @@ export class AuthService {
       else{
         reject();
       }
+      localStorage.removeItem('user')
       this.loggedInStatus = false;
 
     });
@@ -116,6 +120,7 @@ export class AuthService {
           // You as the coder instantiates a new table column and .set the table row data
          
         })
+        
         this.loggedInStatus = true;
         this.router.navigate(['login', {p1:result.user.email}], {skipLocationChange:true});
         resolve(result)
@@ -146,7 +151,7 @@ export class AuthService {
  })
   }
   CheckLoggedIn():boolean{
-    if (this.loggedInStatus == true) {
+    if (this.loggedInStatus == true || localStorage.getItem('user')) {
       return true;
     } else {
       return false;
