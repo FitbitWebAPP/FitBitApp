@@ -30,7 +30,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
        // this.loggedInStatus = true;
-      // setTimeout(() => this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22D5C5&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fcallback&scope=activity%20heartrate%20nutrition%20profile%20sleep%20social%20weight&expires_in=604800', 2000);
+        //setTimeout(() => this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22D5C5&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fcallback&scope=activity%20heartrate%20nutrition%20profile%20sleep%20social%20weight&expires_in=604800', 2000);
         this.router.navigate(['login', {p1:email}], {skipLocationChange:true});
         this.sendEmailVerification();
       })
@@ -71,7 +71,8 @@ export class AuthService {
         })
         localStorage.setItem("user", res.user.uid)
       console.log("LOOK HERE ",localStorage.getItem('user'))
-          this.router.navigate(['group-list'])
+        this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22D5C5&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fcallback&scope=activity%20heartrate%20nutrition%20profile%20sleep%20social%20weight&expires_in=604800';
+          //this.router.navigate(['group-list'])
           // The .ref automatically puts u in the realtime database section you created
           // You as the coder instantiates a new table column and .set the table row data
          

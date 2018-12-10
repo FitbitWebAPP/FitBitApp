@@ -21,7 +21,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import {MatButtonModule} from '@angular/material/button'
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule, MatOptionModule, MatSelectModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule, MatOptionModule, MatSelectModule, MatGridListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
@@ -54,6 +54,7 @@ const routes: Routes = [
   {path: 'group', component: GroupComponent, canActivate:[AuthGuard]},
   {path: 'activity-data', component: ActivityDataComponent, canActivate:[AuthGuard]},
   {path: 'comparison-data', component: ComparisonDataComponent, canActivate:[AuthGuard]},
+  {path: 'callback', component: CallbackComponent},
   {path: 'heartrate-data', component: HeartrateDataComponent, canActivate:[AuthGuard]},
   {path: 'sleep-data', component: SleepDataComponent, canActivate:[AuthGuard]},
   {path: '**', redirectTo: 'login'}
@@ -90,6 +91,7 @@ const routes: Routes = [
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
+    MatGridListModule,
     MatListModule,
     MatInputModule,
     MatProgressSpinnerModule,
