@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -6,6 +6,7 @@ import * as firebase from 'firebase/';
 import { Router, ActivatedRoute } from '@angular/router';
 import { resolve, reject } from 'q';
 import { FacebookLoginProvider, SocialUser } from "angular5-social-login";
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,13 @@ export class AuthService {
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
   userdetails:string;
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, @Inject(DOCUMENT) private document: any) {
     this.user = _firebaseAuth.authState;
     firebase.firestore().settings( { timestampsInSnapshots: true })
     
   }
 
-  signup(email: string, password: string) {
+  signup(email: string, password: string, name:string) {
     // clear all messages
     //this.notifier.display(false, '');
     this._firebaseAuth
@@ -29,6 +30,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
        // this.loggedInStatus = true;
+      // setTimeout(() => this.document.location.href = 'https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22D5C5&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fcallback&scope=activity%20heartrate%20nutrition%20profile%20sleep%20social%20weight&expires_in=604800', 2000);
         this.router.navigate(['login', {p1:email}], {skipLocationChange:true});
         this.sendEmailVerification();
       })
@@ -59,7 +61,7 @@ export class AuthService {
         resolve(res);
         this.loggedInStatus = true;
         firebase.firestore().collection("/USERS").add({
-           email:password,
+          email:password,
           name:res.user.displayName,
           uid:res.user.uid 
          
@@ -156,5 +158,13 @@ export class AuthService {
     } else {
       return false;
     }
+  }
+
+  //adds the fitbit user id from the profile endpoint to the user's document after they sign up and log into fitbit
+  addFitbitUserID(fitbitId){
+      console.log(firebase.auth().currentUser.uid);
+      console.log(fitbitId);
+      firebase.firestore().collection("/USERS").doc(firebase.auth().currentUser.uid)
+      .update("fitbitId", fitbitId);
   }
 }

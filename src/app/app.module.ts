@@ -21,7 +21,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import {MatButtonModule} from '@angular/material/button'
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule, MatOptionModule, MatSelectModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
@@ -29,6 +29,11 @@ import { SocialLoginModule, AuthServiceConfig } from "angular5-social-login";
 import { FacebookLoginProvider } from "angular5-social-login";
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { OtherUsersDataComponent } from './other-users-data/other-users-data.component';
+import { ChooseUserComponent } from './choose-user/choose-user.component';
+import { CallbackComponent } from './callback/callback.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
  export function getAuthServiceConfigs() 
 {
   let config = new AuthServiceConfig([
@@ -40,7 +45,6 @@ import { RouterModule, Routes } from '@angular/router';
   return config
 }
 
- 
 const routes: Routes = [
   {path: '', redirectTo: 'group-list', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
@@ -68,7 +72,10 @@ const routes: Routes = [
     HeartrateDataComponent,
     NavbarComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    OtherUsersDataComponent,
+    ChooseUserComponent,
+    CallbackComponent
   ],
   imports: [
     SocialLoginModule,
@@ -86,9 +93,12 @@ const routes: Routes = [
     MatListModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatOptionModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
+    NgxChartsModule,
     NgIdleKeepaliveModule.forRoot(),
     RouterModule.forRoot(routes)
   ],

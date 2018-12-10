@@ -11,6 +11,7 @@ export class SignupComponent implements OnInit {
   
   email: string;
   password: string;
+  name: string;
   facebookCred:string;
 
   constructor( private _authservice:AuthService) { 
@@ -23,7 +24,7 @@ export class SignupComponent implements OnInit {
   Register() {
    // console.log("Face user "+ this.facebookCred)
 
-    this._authservice.signup(this.email,this.password)
+    this._authservice.signup(this.email,this.password, this.name);
     console.log(this.email);
     console.log(this.password);
 

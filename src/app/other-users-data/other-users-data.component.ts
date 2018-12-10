@@ -3,12 +3,12 @@ import { ApiService } from '../shared/api.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-comparison-data',
-  templateUrl: './comparison-data.component.html',
-  styleUrls: ['./comparison-data.component.css']
+  selector: 'app-other-users-data',
+  templateUrl: './other-users-data.component.html',
+  styleUrls: ['./other-users-data.component.css']
 })
-export class ComparisonDataComponent implements OnInit {
-
+export class OtherUsersDataComponent implements OnInit {
+  
   activityData;
   profile;
   errorMessage;
@@ -24,7 +24,7 @@ export class ComparisonDataComponent implements OnInit {
   showYAxisLabel = true;
   yAxisLabel = 'Steps';
   colorScheme = {
-    domain: ['#5AA454']
+    domain: ['#A10A28']
   };
 
   constructor(private _fitbit: ApiService, private _http: HttpClient) { }

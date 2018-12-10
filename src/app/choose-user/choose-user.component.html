@@ -1,0 +1,11 @@
+<div *ngIf="users">
+    <mat-form-field style="background-color: darkslategrey">
+      <mat-select placeholder="Choose Another User" name="userSelection" ngDefaultControl>
+        <mat-option *ngFor="let user of users" [value]="user.data.name" [(ngModel)]="chosenUser" (onSelectionChange)="chooseUser(user.data.fitbitId)" name="user" ngDefaultControl>
+          {{user.data.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit" (click)="displayOtherUsersData()">Compare Data</button>
+    <app-other-users-data *ngIf="displayOtherUsersDataBool"></app-other-users-data>
+    </div>
