@@ -7,15 +7,21 @@ import {AuthService} from '../service/auth.service'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+SignupemailCopy:string;
+
 
   
-  constructor(private authservice:AuthService) { }
+  constructor(private authservice:AuthService, private activeRoute:ActivatedRoute) {
+    this.SignupemailCopy = this.activeRoute.snapshot.params['p1']
+   
+   }
 
   ngOnInit() {
   }
 
-  login() {
-   // this.authservice.doLogin()
+  login(Email:string, Password:string) {
+    this.authservice.doLogin(Email, Password)
+    
   }
 
 }

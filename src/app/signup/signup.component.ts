@@ -21,11 +21,12 @@ export class SignupComponent implements OnInit {
   }
 
   Register() {
-    console.log("Face user "+ this.facebookCred)
+   // console.log("Face user "+ this.facebookCred)
 
     this._authservice.signup(this.email,this.password)
     console.log(this.email);
     console.log(this.password);
+
   }
   GoogleLogin(){
     this._authservice.doGoogleLogin().then(ere=>{

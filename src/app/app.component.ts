@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, AfterContentInit, AfterViewInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { FirebaseAuth } from '@angular/fire';
+import { AngularFireAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,10 +13,14 @@ export class AppComponent {
   /**
    *
    */
-  constructor(private maticonregistry:MatIconRegistry, private domsanitizer:DomSanitizer,private startingroute:Router) {
+  constructor(private maticonregistry:MatIconRegistry, private domsanitizer:DomSanitizer) {
 
     this.maticonregistry.addSvgIcon("icons8-facebook", this.domsanitizer.bypassSecurityTrustResourceUrl("../../assets/icons8-facebook.svg"))
     this.maticonregistry.addSvgIcon("icons8-google", this.domsanitizer.bypassSecurityTrustResourceUrl("../../assets/icons8-google.svg"))
-    this.startingroute.navigate(['group-list'])
+    //this.startingroute.navigate(['group-list'])
+   
   }
+  
+   
+  
 }

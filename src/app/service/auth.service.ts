@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { resolve, reject } from 'q';
 import { FacebookLoginProvider, SocialUser } from "angular5-social-login";
 
@@ -15,7 +15,7 @@ export class AuthService {
   private user: Observable<firebase.User>;
   loggedInStatus: boolean = false;
   userdetails:string;
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router /*private notifier: NotificationService*/) {
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
     this.user = _firebaseAuth.authState;
     firebase.firestore().settings( { timestampsInSnapshots: true })
     
@@ -29,17 +29,8 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
        // this.loggedInStatus = true;
-        this.router.navigate(['login']);
+        this.router.navigate(['login', {p1:email}], {skipLocationChange:true});
         this.sendEmailVerification();
-        const message = 'A verification email has been sent, please check your email and follow the steps!';
-       // this.notifier.display(true, message)
-       
-        //firebase.database().ref('Employees/' + name).set({
-         
-          // The .ref automatically puts u in the realtime database section you created
-          // You as the coder instantiates a new table column and .set the table row data
-         
-        //})
       })
       .catch(err => {
         console.log(err);
@@ -59,7 +50,7 @@ export class AuthService {
    
   }
   doLogin(email:string,password:string){
-    console.log(firebase.auth().currentUser.displayName)
+    console.log(email)
     
     return new Promise((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(email,password)
@@ -67,19 +58,24 @@ export class AuthService {
        if(res.user.emailVerified){
         resolve(res);
         this.loggedInStatus = true;
-        firebase.database().ref('Employees/' + name).set({
-          email:password,
+        firebase.firestore().collection("/USERS").add({
+           email:password,
           name:res.user.displayName,
-          uid:res.user.uid
+          uid:res.user.uid 
          
           // The .ref automatically puts u in the realtime database section you created
           // You as the coder instantiates a new table column and .set the table row data
          
         })
+          this.router.navigate(['group-list'])
+          // The .ref automatically puts u in the realtime database section you created
+          // You as the coder instantiates a new table column and .set the table row data
+         
+        
         
        }
        else{
-         console.log("Not Verified")
+         alert("Not Verified Email")
          this.loggedInStatus=false;
          reject();
        }
@@ -89,8 +85,10 @@ export class AuthService {
   doLogout(){
     return new Promise((resolve, reject) => {
       if(firebase.auth().currentUser){
-        this._firebaseAuth.auth.signOut()
-       // this.router.navigate(['home'])
+        this._firebaseAuth.auth.signOut()                                                             ///////////////////////////////////////////////////////////////////////////////////////////
+        this.loggedInStatus = false;
+        this.router.navigate(['signup'])
+        
         resolve();
       }
       else{
@@ -101,9 +99,6 @@ export class AuthService {
     });
   }
 
-  /* isLoggedIn():boolean {
-      return this.loggedInStatus;
-  } */
   doGoogleLogin(){
     return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
       let provider =  new firebase.auth.GoogleAuthProvider();
@@ -122,6 +117,7 @@ export class AuthService {
          
         })
         this.loggedInStatus = true;
+        this.router.navigate(['login', {p1:result.user.email}], {skipLocationChange:true});
         resolve(result)
       }).catch(err=> {console.log(err); reject()})
     //  this._firebaseAuth.auth.getRedirectResult().then(result=>{console.log(result.user.email)})
@@ -141,6 +137,7 @@ export class AuthService {
             email:user.email==null ? "No email" : user.email
           })
           this.loggedInStatus = true;
+          this.router.navigate(['login', {p1:user.email}], {skipLocationChange:true});
           resolve(user)
         }).catch(err => {console.log(err); reject()})
       })

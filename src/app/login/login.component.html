@@ -7,14 +7,14 @@
   <mat-card-content>
     <form>
       <mat-form-field>
-         Email:<input matInput name="email" type="email">
+         Email:<input matInput value="{{SignupemailCopy}}" #use type="email">
       </mat-form-field>
       <br><br>
       <mat-form-field>
-         Password:<input matInput name="password" type="password">
+         Password:<input matInput #password type="password">
       </mat-form-field>
       <br><br>
-      <button (click)="login()" mat-raised-button color="primary">Login</button>
+      <button (click)="login(use.value, password.value)" mat-raised-button color="primary">Login</button>
         
         
       
