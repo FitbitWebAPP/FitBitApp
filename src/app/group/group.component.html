@@ -1,3 +1,7 @@
-<p>
-  Display info about the selected group here!
-</p>
+<p>Group info:</p>
+<div *ngIf="group">
+    <h2>Name: {{ group.groupName }} </h2>
+    <div><span>Id: </span>{{ group.groupID }}</div>
+    <div><span>Description: </span>{{ group.groupDescription }}</div>
+    <button (click)="goBack()">go back</button>
+  </div>

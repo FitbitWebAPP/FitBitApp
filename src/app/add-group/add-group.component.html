@@ -1,3 +1,20 @@
-<p>
-  Put the add group form here!
-</p>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Enter the details of the group and press submit</h4>
+<form>
+    <div class="form-group">
+        <input type="text" class="form-control" id="groupId" name="groupId" placeholder="Enter Group ID" [(ngModel)]='groupID'>
+      </div>
+      <br>
+  <div class="form-group">
+    <input type="text" class="form-control" id="groupName" name="groupName" placeholder="Enter Group Name" [(ngModel)]='groupName'>
+  </div>
+  <br>
+  <div class="form-group">
+    <input type="text" class="form-control" id="groupDescription" name="groupDescription" placeholder="Enter Group Description" [(ngModel)]='groupDescription'>
+  </div>
+  <br>
+  <button mat-raised-button color="primary" type="submit" (click) ="addGroup()">Add Group</button>
+</form>
+  </div>
+</div>

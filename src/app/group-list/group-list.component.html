@@ -1,3 +1,24 @@
-<p>
-  Display all the groups here!
-</p>
+<div class='card'>
+  <div class='card-body'>
+    <br>     
+    <div class='table-responsive'>
+        <table class='table' *ngIf='Group && Group.length'>
+            <thead>
+                <tr>                   
+                    <th>ID</th>
+                    <th>Name</th>                   
+                </tr>
+            </thead>
+            <tbody>
+               <tr *ngFor='let Group of filteredGroups'> 
+                <td>{{ Group.groupID }}</td>                 
+                <td>{{ Group.groupName }}</td>
+                <button mat-raised-button color="primary" type="submit" (click) ="viewGroup(Group)">View Group</button>
+                          
+                <button mat-raised-button color="primary" type="submit" (click) ="joinGroup()">Join Group</button>                                          
+               </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
