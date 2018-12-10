@@ -23,6 +23,8 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@ng-idle/core": "^6.0.0-beta.3",
+    "@ng-idle/keepalive": "^6.0.0-beta.3",
     "angular-6-social-login": "^1.1.1",
     "angular5-social-login": "^1.0.9",
     "core-js": "^2.5.4",

@@ -24,11 +24,11 @@ import {MatButtonModule} from '@angular/material/button'
 import { MatCardModule, MatFormFieldModule, MatInputModule, MatToolbarModule,MatIconModule, MatListModule, MatProgressSpinnerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SocialLoginModule, AuthServiceConfig } from "angular5-social-login";
 import { FacebookLoginProvider } from "angular5-social-login";
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { fbind } from 'q';
  export function getAuthServiceConfigs() 
 {
   let config = new AuthServiceConfig([
@@ -89,6 +89,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
+    NgIdleKeepaliveModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
   providers: [AuthService,AuthGuard,
